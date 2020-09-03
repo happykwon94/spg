@@ -7,9 +7,8 @@
 		<link rel="stylesheet" href="/css/board/board_common.css">
 	    <link rel="stylesheet" href="/css/board/board_management.css">
 
- 	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="/js/common.js"></script>
-		<script type="text/javascript" src="/js/freeboard.js"></script>            
+		<script src="/js/freeboard.js"></script>            
 
 </head>
 
@@ -19,8 +18,6 @@
 <div class="Header">
     <th:block th:include="header :: commonHeader"></th:block>
 </div>
-
-<input type="hidden" id="content-id" th:value="${contentId}">
 
 <div class="sub-visual-wrap"></div>
 
@@ -45,37 +42,40 @@
 				
 					<!-- Contents -->
 			       <div class="section">
-				        <div>
+				        <div><!-- <div class="container"> -->
 				        	<table>
 								<tbody>
-									<tr class="title-box">
-										<td colspan="6" class="title-box" th:text="${contentTitle}"></td>
+									<tr class="title-box label-tag">
+										<td colspan="6" class="title-box" th:text="${contentTitle}">
+										</td>
 									</tr>
 									<tr>
-										<th scope="row" class="name-tag">작성자</th>
+										<th scope="row">작성자</th>
 										<td colspan="2" class="label-tag" th:text="${writerName}">
 										</td>
-										<th scope="row" class="name-tag">첨부 파일</th>
+										<th scope="row">첨부 파일</th>
 										<td colspan="2" class="label-tag">
 											<a th:href="@{#}" th:text="${fileName}"></a>
 										</td>
 									</tr>
 									<tr>
-										<td colspan="6" class="content-tag">
+										<td colspan="6" class="label-tag">
 											<div class="content-box" th:text="${contentText}"></div>
 										</td>
 									</tr>
 									<tr>
-										<td colspan="6" class="comment-count-tag">댓 글 : <span id="count" th:text="${commentCount}"></span></td>
-									</tr>
-									<tr>
-										<td colspan="6" class="comment-tag">
+										<td colspan="6" class="label-tag">
 											<!-- comment -->
+											<div id="comment-count">
+												댓글 <span id="count" th:text="${commentCount}">0</span>
+											</div>
+											<hr style="border-color: #c1bcba;" />
 											<div id=comments>
 												<div></div>
 												<th:block th:each="comment : ${commentList}">
 													<div class="eachComment" th:id="${comment.getId()}">
 														<div class="name">
+															<!-- <span th:text="${comment.getUserName() + ' (' + #dates.format(comment.getCreateDate(), 'yyyy-MM-dd') + ')'}"></span> -->
 															<span th:text="${comment.getUserName()}"></span> <a
 																th:onclick="|javascript:checkDeleteComment('${comment.getId()}')|"><span
 																th:if="${#strings.equals(userName, comment.getUserName())}"
@@ -90,22 +90,28 @@
 													</div>
 												</th:block>
 											</div> <br />
+											<div id="form-commentInfo">
+												<!-- <form th:action="@{doWriteComment}" method="post" onsubmit="return checkContent();"> -->
+												<input id="comment-input" type="text" placeholder="댓글을 입력해 주세요."
+													name="comment_input"> <br /> <input type="submit"
+													class="btn" value="등록" id="comment_submit"
+													onclick="checkComment();">
+											</div>
+											<div class="right_button">
+												<!-- <a th:href="@{/board/freeBoard/doDelete(contentId=${contentId})}" class="btn" style="background: none repeat scroll 0 0 #DA1111;">삭제</a> -->
+												<input th:if="${#strings.equals(userName, writerName)}" type="button" id="delete-button" value="삭제" class="btn" style="background: none repeat scroll 0 0 #DA1111;" /> 
+												<a th:if="${#strings.equals(userName, writerName)}" th:href="@{/board/freeBoard/modify(contentId=${contentId})}" class="btn">수정</a> 
+												<a th:href="@{/board/freeBoard}" class="btn">목록 </a>
+											</div>
 										</td>
 									</tr>
-										<td colspan="6" class="comment-input-tag">
-											<div id="form-commentInfo">
-												<input id="comment-input" type="text" placeholder="  댓글을 입력해 주세요."
-													name="comment_input"> <br /> <input type="submit"
-													class="btn" value="등 록" id="comment_submit"
-													onclick="checkComment();">
-											</div>											
-										</td>									
 									<tr>
 										<td colspan="6" class="label-tag">
 											<div class="right_button">
+												<!-- <a th:href="@{/board/freeBoard/doDelete(contentId=${contentId})}" class="btn" style="background: none repeat scroll 0 0 #DA1111;">삭제</a> -->
 												<input th:if="${#strings.equals(userName, writerName)}" type="button" id="delete-button" value="삭제" class="btn" style="background: none repeat scroll 0 0 #DA1111;" /> 
 												<a th:if="${#strings.equals(userName, writerName)}" th:href="@{/board/freeBoard/modify(contentId=${contentId})}" class="btn">수정</a> 
-												<a th:href="@{/board/freeBoard}" class="btn">목 록 </a>
+												<a th:href="@{/board/freeBoard}" class="btn">목록 </a>
 											</div>
 										</td>
 									</tr>
@@ -124,6 +130,5 @@
 <footer>
     <th:block th:include="footer :: commonFooter"></th:block>
 </footer> 
-
 </body>
 </html>

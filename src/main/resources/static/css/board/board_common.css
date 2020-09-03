@@ -7,13 +7,8 @@
    width: 100%;
 }
 
-.post_list {
-	width: 100%;
-}
-
 .post_list th {
 	font-size: 1.2em;
-	text-align: left;
 	padding: 10px 0;
 }
 
@@ -117,19 +112,16 @@
 	color: aliceblue;
 }
 
-#comments {
-	margin-top: 0.5em;
-}
 
 .eachComment {
 	width: 100%;
-	margin: 0.5em;
-	padding: 1.5em;
+	padding: 0.7em 0.3em;
+
 	border-bottom: 1px solid #c1bcba;
 }
 
 .eachComment .name {
-	font-size: 1.2em;
+	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	margin-bottom: 0.3em;
@@ -171,16 +163,20 @@ table {
 	color: #535b60;
 }
 
+.job-position-title a{
+	float: left;
+}
+
 .job-position-name {
-	width: 20%;
+	width: 10%;
 }
 
 .job-position-date {
-	width: 20%;
+	width: 10%;
 }
 
 .job-position-views {
-	width: 10%;
+	width: 5%;
 }
 
 .content-title {
@@ -193,4 +189,9 @@ table {
 
 .time-stamp {
 	font-size: 0.8em;
+}
+
+.inputValue p {
+	margin: 0px;
+	padding-left: 0.3em;
 }

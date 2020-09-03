@@ -11,11 +11,32 @@ function onClickUrlEventHandler(id) {
 function onClickCheckBoxEvnetHandler(id){
 	const checkboxList = document.getElementsByClassName(id);
 	let isUnauth = false;
+	let isChecked = true;
+	
+	
+	
 	for(let index = 0; index < checkboxList.length; index++){
 		const checkboxObj = checkboxList[index];
 		if(checkboxObj.value.trim() == "ROLE_UNAUTH" && checkboxObj.checked == true){
 			isUnauth = true;
 		}
+		
+		if(checkboxObj.checked == true){
+			isChecked = false;
+		}
+		
+	}
+	
+	if(isChecked){
+		alert("최소 하나의 권한 설정 필요")
+		for(let index = 0; index < checkboxList.length; index++){
+			const checkboxObj = checkboxList[index];
+			checkboxObj.checked = false;
+			checkboxObj.disabled = false;
+			if(checkboxObj.value.trim() == "ROLE_STUDENT"){
+				checkboxObj.checked = true;
+			}
+		}	
 	}
 	
 	if(isUnauth){
@@ -37,4 +58,7 @@ function onClickCheckBoxEvnetHandler(id){
 			}
 		}
 	}
+}
+
+window.onload = function(){
 }
