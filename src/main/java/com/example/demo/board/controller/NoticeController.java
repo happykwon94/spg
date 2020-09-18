@@ -12,6 +12,6 @@ public class NoticeController {
     @RequestMapping(value = "noticeBoard")
     public String goNotice() {
 
-        return "admin/notice";
+        return "";
     }
 }
